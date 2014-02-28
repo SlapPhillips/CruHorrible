@@ -52,29 +52,31 @@ public class World {
 			b.update(one);
 		}
 		
-		eIter = enemies.iterator();
-		while (eIter.hasNext()) {
-			e = eIter.next();
-			e.advance(Gdx.graphics.getDeltaTime(), one);
-			if(one.getBounds().overlaps(e.getBounds())) {
-				Gdx.app.log(HelloWorld.LOG, "SHIIIIIIIIIIIT");
-			}
-		}
+//		eIter = enemies.iterator();
+//		while (eIter.hasNext()) {
+//			e = eIter.next();
+//			e.advance(Gdx.graphics.getDeltaTime(), one);
+//			if(one.getBounds().overlaps(e.getBounds())) {
+//				Gdx.app.log(HelloWorld.LOG, "SHIIIIIIIIIIIT");
+//			}
+//		}
 		
 		bIter = bullets.iterator();
 		while (bIter.hasNext()) {
 			b = bIter.next();
 			
-			eIter = enemies.iterator();
-			while (eIter.hasNext()) {
-				e = eIter.next();
-
-				if (e.getBounds().overlaps(b.getBounds())) {
-					Gdx.app.log(HelloWorld.LOG, "GOTTAM");
-					eIter.remove();
-					bIter.remove();
-				}
-			}
+			
+			
+//			eIter = enemies.iterator();
+//			while (eIter.hasNext()) {
+//				e = eIter.next();
+//
+//				if (e.getBounds().overlaps(b.getBounds())) {
+//					Gdx.app.log(HelloWorld.LOG, "GOTTAM");
+//					eIter.remove();
+//					bIter.remove();
+//				}
+//			}
 		}
 	}
 	

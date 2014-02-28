@@ -37,7 +37,7 @@ public class WorldRenderer {
 	Animation idleAnimationOne, idleAnimationTwo, walkAnimationOne, walkAnimationTwo, punchAnimationOne, punchAnimationTwo, gunAnimation, swordAnimation;
 	TextureRegion currentFrameOne, currentFrameTwo;
 	TextureRegion[] idleFramesOne, idleFramesTwo, walkFramesOne, walkFramesTwo, punchFramesOne, punchFramesTwo, gunFrames, swordFrames;
-	float stateTime;
+	float oneIdleTime, oneWalkTime, onePunchTime, oneActTime, twoIdleTime, twoWalkTime, twoPunchTime, twoActTime, slashTime, bulletTime;
 	
 	public WorldRenderer(World world) {
 		this.world = world;
@@ -100,13 +100,13 @@ public class WorldRenderer {
             }
         }
         int index7 = 0;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 2; j < 3; j++) {
             	gunFrames[index7++] = tmp[j][i];
             }
         }
         int index8 = 0;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 4; j < 5; j++) {
             	swordFrames[index8++] = tmp[j][i];
             }
@@ -120,7 +120,16 @@ public class WorldRenderer {
         gunAnimation = new Animation(0.5f,gunFrames);
         swordAnimation = new Animation(0.5f,swordFrames);
 
-        stateTime = 0f;
+        oneIdleTime = 0f;
+        oneWalkTime = 0f;
+        onePunchTime = 0f;
+        oneActTime = 0f;
+        twoIdleTime = 0f;
+        twoWalkTime = 0f;
+        twoPunchTime = 0f;
+        twoActTime = 0f;
+        slashTime = 0.5f;
+        bulletTime = 1f;
         
         idleAnimationOne.setPlayMode(Animation.LOOP);
         idleAnimationTwo.setPlayMode(Animation.LOOP);
@@ -147,28 +156,49 @@ public class WorldRenderer {
 		
 		one = world.getOne();
 		two = world.getTwo();
-		enemies = world.getEnemies();
 		bullets = world.getBullets();
 		
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		
-		stateTime += Gdx.graphics.getDeltaTime();
-		
 		if(one.isActing() == false && one.isPunching() == false && one.getVelocity().x == 0 && one.getVelocity().y == 0) 
-		{currentFrameOne = idleAnimationOne.getKeyFrame(stateTime);}
+		{currentFrameOne = idleAnimationOne.getKeyFrame(oneIdleTime);
+		oneIdleTime += Gdx.graphics.getDeltaTime();
+		oneWalkTime = 0f;
+        onePunchTime = 0f;
+        oneActTime = 0f;}
 		if(two.isActing() == false && two.isPunching() == false && two.getVelocity().x == 0 && two.getVelocity().y == 0) 
-		{currentFrameTwo = idleAnimationTwo.getKeyFrame(stateTime);}
+		{currentFrameTwo = idleAnimationTwo.getKeyFrame(twoIdleTime);
+		twoIdleTime += Gdx.graphics.getDeltaTime();
+		twoWalkTime = 0f;
+        twoPunchTime = 0f;
+        twoActTime = 0f;}
 		
-		if(one.getVelocity().x != 0 || one.getVelocity().y != 0) {
-			currentFrameOne = walkAnimationOne.getKeyFrame(stateTime);
+		if((one.getVelocity().x != 0 || one.getVelocity().y != 0) && one.isActing() == false && one.isPunching() == false) {
+			currentFrameOne = walkAnimationOne.getKeyFrame(oneWalkTime);
+			oneWalkTime += Gdx.graphics.getDeltaTime();
 		}
 		
-		if(two.getVelocity().x != 0 || two.getVelocity().y != 0) {
-			currentFrameTwo = walkAnimationTwo.getKeyFrame(stateTime);
+		if((two.getVelocity().x != 0 || two.getVelocity().y != 0) && two.isActing() == false && two.isPunching() == false) {
+			currentFrameTwo = walkAnimationTwo.getKeyFrame(twoWalkTime);
+			twoWalkTime += Gdx.graphics.getDeltaTime();
 		}
 		
+		if(one.isPunching() == true) {
+			currentFrameOne = punchAnimationOne.getKeyFrame(onePunchTime);
+			onePunchTime += Gdx.graphics.getDeltaTime();
+		}
 		
+		if(one.isActing() == true) {
+			currentFrameOne = gunAnimation.getKeyFrame(oneActTime);
+			oneActTime += Gdx.graphics.getDeltaTime();
+		}
+		
+		if(two.isPunching() == true) {
+			currentFrameTwo = punchAnimationTwo.getKeyFrame(twoPunchTime);
+			twoPunchTime += Gdx.graphics.getDeltaTime();
+		}
+
 		batch.begin();
 		
 		//batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
