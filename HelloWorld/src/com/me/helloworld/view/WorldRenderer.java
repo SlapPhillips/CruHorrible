@@ -28,7 +28,7 @@ public class WorldRenderer {
 	SpriteBatch batch;
 	Player one, two;
 	OrthographicCamera cam;
-	Texture playerTexture, followerTexture, bulletTexture;
+	Texture playerTexture, followerTexture, attackTexture, bulletTexture;
 	ShapeRenderer sr;
 	Array<Bullet> bullets;
 	Array<Enemy> enemies;
@@ -54,6 +54,12 @@ public class WorldRenderer {
 		playerTexture = new Texture("data/ohgodwhy.png");
 		playerTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
+		attackTexture = new Texture("data/shitslash.png");
+		attackTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
+		bulletTexture = new Texture("data/shitbullet.png");
+		bulletTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
 		TextureRegion[][] tmp = TextureRegion.split(playerTexture, playerTexture.getWidth()/5, playerTexture.getHeight()/6);
 		idleFramesOne = new TextureRegion[2];
 		idleFramesTwo = new TextureRegion[2];
@@ -128,6 +134,8 @@ public class WorldRenderer {
         twoWalkTime = 0f;
         twoPunchTime = 0f;
         twoActTime = 0f;
+        float oneWindUp = 0.5f;
+        float twoWindUp = 0.5f;
         slashTime = 0.5f;
         bulletTime = 1f;
         
@@ -187,6 +195,9 @@ public class WorldRenderer {
 		if(one.isPunching() == true) {
 			currentFrameOne = punchAnimationOne.getKeyFrame(onePunchTime);
 			onePunchTime += Gdx.graphics.getDeltaTime();
+			if (currentFrameOne == punchFramesOne[2]) {
+				batch.draw(attackTexture, one.getPosition().x + 64, one.getPosition().y + 20, one.getWidth()/2, one.getHeight()/2, one.getWidth(), one.getHeight(), 1, 1);
+			}
 		}
 		
 		if(one.isActing() == true) {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends MoveableEntity {
 
 	boolean acting, punching;
+	int SPEED = 20;
 	
 	public Player(float speed, float rotation, float width, float height, Vector2 position) {
 		super(speed, rotation, width, height, position);
@@ -31,6 +32,14 @@ public class Player extends MoveableEntity {
 
 	public void setPunching(boolean punching) {
 		this.punching = punching;
+	}
+
+	public int getSPEED() {
+		return SPEED;
+	}
+
+	public void setSPEED(int sPEED) {
+		SPEED = sPEED;
 	}
 	
 }

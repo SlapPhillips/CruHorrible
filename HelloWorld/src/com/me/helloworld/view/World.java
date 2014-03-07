@@ -67,22 +67,24 @@ public class World {
 			
 			
 			
-//			eIter = enemies.iterator();
-//			while (eIter.hasNext()) {
-//				e = eIter.next();
-//
-//				if (e.getBounds().overlaps(b.getBounds())) {
-//					Gdx.app.log(HelloWorld.LOG, "GOTTAM");
-//					eIter.remove();
-//					bIter.remove();
-//				}
-//			}
+			eIter = enemies.iterator();
+			while (eIter.hasNext()) {
+				e = eIter.next();
+
+				if (e.getBounds().overlaps(b.getBounds())) {
+					Gdx.app.log(HelloWorld.LOG, "GOTTAM");
+					eIter.remove();
+					bIter.remove();
+				}
+			}
 		}
 	}
 	
 	public void addBullet(Bullet b) {
 		bullets.add(b);
 	}
+	
+	
 	
 	public Array<Bullet> getBullets() {
 		return bullets;

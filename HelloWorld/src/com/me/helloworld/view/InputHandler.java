@@ -23,16 +23,16 @@ public class InputHandler implements InputProcessor{
 		one = world.getOne();
 		switch(keycode){
 			case Keys.W:
-				one.getVelocity().y = 20;
+				one.getVelocity().y = one.getSPEED();
 				break;
 			case Keys.S:
-				one.getVelocity().y = -20;
+				one.getVelocity().y = -one.getSPEED();
 				break;
 			case Keys.A:
-				one.getVelocity().x = -20;
+				one.getVelocity().x = -one.getSPEED();
 				break;
 			case Keys.D:
-				one.getVelocity().x = 20;
+				one.getVelocity().x = one.getSPEED();
 				break;
 			case Keys.F:
 				one.setActing(true);
@@ -44,16 +44,16 @@ public class InputHandler implements InputProcessor{
 		two = world.getTwo();
 		switch(keycode){
 			case Keys.UP:
-				two.getVelocity().y = 20;
+				two.getVelocity().y = two.getSPEED();
 				break;
 			case Keys.DOWN:
-				two.getVelocity().y = -20;
+				two.getVelocity().y = -two.getSPEED();
 				break;
 			case Keys.LEFT:
-				two.getVelocity().x = -20;
+				two.getVelocity().x = -two.getSPEED();
 				break;
 			case Keys.RIGHT:
-				two.getVelocity().x = 20;
+				two.getVelocity().x = two.getSPEED();
 				break;
 			case Keys.ENTER:
 				two.setActing(true);
@@ -70,19 +70,19 @@ public class InputHandler implements InputProcessor{
 		one = world.getOne();
 		switch(keycode){
 			case Keys.W:
-				if(one.getVelocity().y == 20)
+				if(one.getVelocity().y == one.getSPEED())
 					one.getVelocity().y = 0;
 				break;
 			case Keys.S:
-				if(one.getVelocity().y == -20)
+				if(one.getVelocity().y == -one.getSPEED())
 					one.getVelocity().y = 0;
 				break;
 			case Keys.A:
-				if(one.getVelocity().x == -20)
+				if(one.getVelocity().x == -one.getSPEED())
 					one.getVelocity().x = 0;
 				break;
 			case Keys.D:
-				if(one.getVelocity().x == 20)
+				if(one.getVelocity().x == one.getSPEED())
 					one.getVelocity().x = 0;
 				break;
 			case Keys.F:
@@ -95,19 +95,19 @@ public class InputHandler implements InputProcessor{
 		two = world.getTwo();
 		switch(keycode){
 			case Keys.UP:
-				if(two.getVelocity().y == 20)
+				if(two.getVelocity().y == two.getSPEED())
 					two.getVelocity().y = 0;
 				break;
 			case Keys.DOWN:
-				if(two.getVelocity().y == -20)
+				if(two.getVelocity().y == -two.getSPEED())
 					two.getVelocity().y = 0;
 				break;
 			case Keys.LEFT:
-				if(two.getVelocity().x == -20)
+				if(two.getVelocity().x == -two.getSPEED())
 					two.getVelocity().x = 0;
 				break;
 			case Keys.RIGHT:
-				if(two.getVelocity().x == 20)
+				if(two.getVelocity().x == two.getSPEED())
 					two.getVelocity().x = 0;
 				break;
 			case Keys.ENTER:
